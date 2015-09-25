@@ -54,6 +54,8 @@ class SiteController extends Controller
 
     public function actionLogin()
     {
+        $this->layout = 'login';
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -74,21 +76,17 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+//    public function actionContact()
+//    {
+//        $model = new ContactForm();
+//        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+//            Yii::$app->session->setFlash('contactFormSubmitted');
+//
+//            return $this->refresh();
+//        }
+//        return $this->render('contact', [
+//            'model' => $model,
+//        ]);
+//    }
+//
 }

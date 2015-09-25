@@ -38,6 +38,13 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+        ],
+    ],
+    'as AccessBehavior' => [
+        'class' => '\app\components\AccessBehavior'
     ],
     'params' => $params,
 ];

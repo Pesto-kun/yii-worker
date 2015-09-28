@@ -27,7 +27,7 @@ CREATE TABLE `task` (
   `status` int(1) NOT NULL DEFAULT '1',
   `created` int(11) UNSIGNED NOT NULL,
   `updated` int(11) UNSIGNED NOT NULL,
-  `closed` int(11) UNSIGNED,
+  `closed` int(11) UNSIGNED DEFAULT '0',
   `client_id` int(11) UNSIGNED,
   `title` varchar(255) NOT NULL,
   `date` int(11) UNSIGNED,

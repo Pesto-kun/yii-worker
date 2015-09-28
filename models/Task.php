@@ -39,7 +39,9 @@ class Task extends \yii\db\ActiveRecord
             [['status', 'created', 'updated', 'closed', 'client_id', 'expected_profit', 'result_profit'], 'integer'],
             [['title'], 'required'],
             [['description'], 'string'],
-            [['title'], 'string', 'max' => 255]
+            [['title'], 'string', 'max' => 255],
+            [['date'], 'string', 'max' => 10],
+            [['date'], 'validateDate'],
         ];
     }
 
@@ -63,6 +65,13 @@ class Task extends \yii\db\ActiveRecord
         ];
     }
 
+    public function validateDate($attribute, $params)
+    {
+        if(!preg_match('/^\d{4}\-\d{2}\-\d{2}$/', $this->$attribute)) {
+            $this->addError($attribute, 'Неверный формат даты. Дата дожна быть в формате YYYY-MM-DD.');
+        }
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -70,4 +79,20 @@ class Task extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Client::className(), ['id' => 'client_id']);
     }
+
+    //TODO остановился тут 2015-09-28 09:11
+//    public function load($data, $formName = NULL) {
+//
+//        if(parent::load($data, $formName)) {
+//
+//            if($data['Task']['date']) {
+//                $parts = explode('-', $data['date']);
+//                $this->setAttribute('date', mktime(0, 0, 0, $parts[1], $parts[0], $parts[2]));
+//            }
+//
+//            return true;
+//        }
+//
+//        return false;
+//    }
 }

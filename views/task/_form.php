@@ -1,7 +1,6 @@
 <?php
-
+use kartik\date\DatePicker;
 use yii\helpers\Html;
-use yii\jui\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -24,11 +23,17 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()->where(['sta
     </div>
 
     <div class="col-sm-6">
+        <?php if($model->date) {$model->date = Yii::$app->formatter->asDate($model->date, 'php:d.m.Y');} ?>
         <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
-            'language' => 'ru',
-            'dateFormat' => 'yyyy-MM-dd',
+            'type' => DatePicker::TYPE_COMPONENT_APPEND,
+            'pickerButton' =>false,
             'options' => [
-                'class' => 'form-control',
+                'placeholder' => 'Выбрать дату'
+            ],
+            'pluginOptions' => [
+                'todayHighlight' => true,
+                'autoclose'=>true,
+                'format' => 'dd.mm.yyyy',
             ]
         ]) ?>
     </div>

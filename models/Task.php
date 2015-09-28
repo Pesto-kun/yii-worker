@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use DateTime;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "task".
@@ -40,7 +43,6 @@ class Task extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 255],
-            [['date'], 'string', 'max' => 10],
             [['date'], 'validateDate'],
         ];
     }
@@ -67,9 +69,23 @@ class Task extends \yii\db\ActiveRecord
 
     public function validateDate($attribute, $params)
     {
-        if(!preg_match('/^\d{4}\-\d{2}\-\d{2}$/', $this->$attribute)) {
-            $this->addError($attribute, 'Неверный формат даты. Дата дожна быть в формате YYYY-MM-DD.');
+        if(!preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $this->$attribute)) {
+            $this->addError($attribute, 'Неверный формат даты. Дата дожна быть в формате DD-MM-YYYY.');
         }
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created', 'updated'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => 'updated',
+                ],
+                'value' => function() { return date('U');},
+            ],
+        ];
     }
 
     /**
@@ -80,14 +96,21 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasOne(Client::className(), ['id' => 'client_id']);
     }
 
-    //TODO остановился тут 2015-09-28 09:11
-//    public function load($data, $formName = NULL) {
+    public function beforeSave($insert) {
+        $dateFrom = DateTime::createFromFormat('d.m.Y', $this->date);
+        $this->date = $dateFrom->getTimestamp();
+        return parent::beforeSave($insert);
+    }
+
+
+
+    //    public function load($data, $formName = NULL) {
 //
 //        if(parent::load($data, $formName)) {
 //
 //            if($data['Task']['date']) {
-//                $parts = explode('-', $data['date']);
-//                $this->setAttribute('date', mktime(0, 0, 0, $parts[1], $parts[0], $parts[2]));
+//                $parts = explode('-', $data['Task']['date']);
+//                $this->setAttribute('date', mktime(0, 0, 0, $parts[1], $parts[2], $parts[0]));
 //            }
 //
 //            return true;

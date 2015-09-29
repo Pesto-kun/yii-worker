@@ -41,3 +41,18 @@ ALTER TABLE `task`
   FOREIGN KEY (`client_id`)
   REFERENCES `client` (`id`)
   ON DELETE SET NULL;
+
+#Комментарии к задаче
+CREATE TABLE `comment` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `task_id` int(11) UNSIGNED,
+  `created` int(11) UNSIGNED NOT NULL,
+  `type` varchar(32),
+  `text` TEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_task`
+  FOREIGN KEY (`task_id`)
+  REFERENCES `task` (`id`)
+  ON DELETE CASCADE;

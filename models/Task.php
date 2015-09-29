@@ -14,6 +14,7 @@ use yii\db\ActiveRecord;
  * @property integer $status
  * @property integer $created
  * @property integer $updated
+ * @property integer $closed
  * @property integer $client_id
  * @property string $title
  * @property integer $date
@@ -22,6 +23,7 @@ use yii\db\ActiveRecord;
  * @property string $description
  *
  * @property Client $client
+ * @property Comment[] $comments
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -94,6 +96,14 @@ class Task extends \yii\db\ActiveRecord
     public function getClient()
     {
         return $this->hasOne(Client::className(), ['id' => 'client_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['task_id' => 'id']);
     }
 
     public function beforeSave($insert) {

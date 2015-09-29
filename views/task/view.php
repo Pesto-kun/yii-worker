@@ -1,7 +1,8 @@
 <?php
-
+use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
@@ -36,8 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<span class="label label-success">Открыто</span>' :
                     '<span class="label label-danger">Закрыто</span>',
             ],
-//            'created:datetime',
-//            'updated:datetime',
             [
                 'attribute' => 'client.username',
                 'label' => 'Клиент'
@@ -48,5 +47,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
         ],
     ]) ?>
+
+    <h2>Комментарии</h2>
+    <p><?= Html::a('Добавить комментарий', ['comment/create', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></p>
+
+    <ul class="list-group">
+        <?php
+        $comments = $model->comments;
+        if($comments) {
+            foreach($comments as $_comment) {
+                echo '<li class="list-group-item">'.$_comment->text.'</li>';
+            }
+        }
+        ?>
+    </ul>
 
 </div>

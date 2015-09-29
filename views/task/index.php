@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'client.username',
             'title',
-            'created',
-            'date',
+            'created:datetime',
+            'date:date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

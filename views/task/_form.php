@@ -1,7 +1,8 @@
 <?php
-use kartik\date\DatePicker;
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+
+use kartik\helpers\Html;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
@@ -19,31 +20,38 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()->where(['sta
     </div>
 
     <div class="col-sm-6">
-        <?= $form->field($model, 'client_id')->dropDownList($clients, ['prompt' => '- Выбрать клиента -'])->label('Клиент') ?>
+        <?= $form->field($model, 'client_id')->widget(\kartik\widgets\Select2::className(), [
+            'language' => 'ru',
+            'data' => $clients,
+            'options' => ['placeholder' => 'Привязать пользователя...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+            'addon' => [
+                'prepend' => [
+                    'content' => Html::icon('user'),
+                ],
+            ]
+        ]); ?>
     </div>
 
     <div class="col-sm-6">
-        <?php if($model->date) {$model->date = Yii::$app->formatter->asDate($model->date, 'php:d.m.Y');} ?>
-        <?= $form->field($model, 'date')->widget(DatePicker::classname(), [
-            'type' => DatePicker::TYPE_COMPONENT_APPEND,
-            'pickerButton' =>false,
-            'options' => [
-                'placeholder' => 'Выбрать дату'
-            ],
+        <?php if($model->date) {$model->date = Yii::$app->formatter->asDate($model->date, 'php:d.m.Y H:i');} ?>
+        <?= $form->field($model, 'date')->widget(DateTimePicker::classname(), [
+            'type' => DateTimePicker::TYPE_COMPONENT_APPEND,
             'pluginOptions' => [
-                'todayHighlight' => true,
-                'autoclose'=>true,
-                'format' => 'dd.mm.yyyy',
+                'autoclose' => true,
+                'format' => 'dd.mm.yyyy hh:ii'
             ]
         ]) ?>
     </div>
 
     <div class="col-sm-6">
-        <?= $form->field($model, 'expected_profit')->textInput() ?>
+        <?= $form->field($model, 'expected_profit', ['addon' => ['append' => ['content'=>'рублей']]])->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="col-sm-6">
-        <?= $form->field($model, 'result_profit')->textInput() ?>
+        <?= $form->field($model, 'result_profit', ['addon' => ['append' => ['content'=>'рублей']]])->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="col-sm-12">

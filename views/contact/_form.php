@@ -12,11 +12,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type')->dropDownList(ContactType::getTypes()) ?>
+    <div class="col-sm-6">
+        <?= $form->field($model, 'type')->dropDownList(ContactType::getTypes()) ?>
+    </div>
 
-    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
+    <div class="col-sm-6">
+        <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <div class="form-group">
+    <div class="col-sm-12">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить изменения', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

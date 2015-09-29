@@ -1,24 +1,38 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 /* @var $this yii\web\View */
+use kartik\helpers\Html;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\SwitchInput;
+
 /* @var $model app\models\Client */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form kartik\widgets\ActiveForm */
 ?>
 
 <div class="client-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'status')->checkbox() ?>
+    <div class="col-sm-12">
+        <?= $form->field($model, 'status')->widget(SwitchInput::classname(), [
+            'pluginOptions' => [
+                'onColor' => 'success',
+                'offColor' => 'danger',
+                'onText' => 'Да',
+                'offText' => 'Нет',
+            ]
+        ]) ?>
+    </div>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <div class="col-sm-12">
+        <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
+    <div class="col-sm-12">
+        <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
+    </div>
 
-    <div class="form-group">
+    <div class="col-sm-12">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить изменения', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'client.username',
                 'label' => 'Клиент'
             ],
-            'date:date',
+            'date:datetime',
             'expected_profit',
             'result_profit',
             'description:ntext',

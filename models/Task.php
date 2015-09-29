@@ -71,8 +71,8 @@ class Task extends \yii\db\ActiveRecord
 
     public function validateDate($attribute, $params)
     {
-        if(!preg_match('/^\d{2}\.\d{2}\.\d{4}$/', $this->$attribute)) {
-            $this->addError($attribute, 'Неверный формат даты. Дата дожна быть в формате DD-MM-YYYY.');
+        if(!preg_match('/^\d{2}\.\d{2}\.\d{4}\s\d{2}:\d{2}$/', $this->$attribute)) {
+            $this->addError($attribute, 'Неверный формат даты. Дата дожна быть в формате 01.01.2015 12:00.');
         }
     }
 
@@ -107,7 +107,7 @@ class Task extends \yii\db\ActiveRecord
     }
 
     public function beforeSave($insert) {
-        $dateFrom = DateTime::createFromFormat('d.m.Y', $this->date);
+        $dateFrom = DateTime::createFromFormat('d.m.Y H:i', $this->date);
         $this->date = $dateFrom->getTimestamp();
         return parent::beforeSave($insert);
     }

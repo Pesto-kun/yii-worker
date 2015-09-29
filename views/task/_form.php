@@ -15,8 +15,12 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()->where(['sta
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="col-sm-12">
+    <div class="col-sm-8">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-sm-4">
+        <?= $form->field($model, 'priority')->dropDownList(\app\models\Priority::getItems()) ?>
     </div>
 
     <div class="col-sm-6">

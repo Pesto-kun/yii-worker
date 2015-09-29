@@ -29,6 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         '<span class="label label-danger">Закрыто</span>';},
                 'label' => 'Статус'
             ],
+            [
+                'attribute' => 'priority',
+                'format'=>'raw',
+                'value' => function ($data) {
+                    return \app\models\Priority::getPriorityLabel($data->priority);},
+                'label' => 'Приоритет'
+            ],
             'client.username',
             'title',
             'created:datetime',

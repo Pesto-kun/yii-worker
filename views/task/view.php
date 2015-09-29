@@ -38,6 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<span class="label label-danger">Закрыто</span>',
             ],
             [
+                'attribute' => 'priority',
+                'format'=>'raw',
+                'value' => \app\models\Priority::getPriorityLabel($model->priority),
+                'label' => 'Приоритет'
+            ],
+            [
                 'attribute' => 'client.username',
                 'label' => 'Клиент'
             ],

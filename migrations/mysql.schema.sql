@@ -31,6 +31,7 @@ CREATE TABLE `task` (
   `client_id` int(11) UNSIGNED,
   `title` varchar(255) NOT NULL,
   `date` int(11) UNSIGNED,
+  `priority` int(1) UNSIGNED DEFAULT '5',
   `expected_profit` int(11),
   `result_profit` int(11),
   `description` TEXT,

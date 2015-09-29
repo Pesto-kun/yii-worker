@@ -18,6 +18,7 @@ use yii\db\ActiveRecord;
  * @property integer $client_id
  * @property string $title
  * @property integer $date
+ * @property integer $priority
  * @property integer $expected_profit
  * @property integer $result_profit
  * @property string $description
@@ -41,10 +42,11 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status', 'created', 'updated', 'closed', 'client_id', 'expected_profit', 'result_profit'], 'integer'],
+            [['status', 'created', 'updated', 'closed', 'client_id', 'expected_profit', 'result_profit', 'priority'], 'integer'],
             [['title'], 'required'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 255],
+            [['priority'], 'number', 'min' => 0, 'max' => 9],
             [['date'], 'validateDate'],
         ];
     }

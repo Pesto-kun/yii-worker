@@ -24,8 +24,12 @@ use kartik\widgets\SwitchInput;
         ]) ?>
     </div>
 
-    <div class="col-sm-12">
-        <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <div class="col-sm-8">
+        <?= $form->field($model, 'username', ['addon' => ['prepend' => ['content'=>Html::icon('pencil')]]])->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-sm-4">
+        <?= $form->field($model, 'type', ['addon' => ['prepend' => ['content'=>Html::icon('user')]]])->dropDownList(\app\models\Client::$_types, ['prompt' => '- Выбрать тип клиента -']) ?>
     </div>
 
     <div class="col-sm-12">

@@ -8,7 +8,8 @@ use kartik\widgets\DateTimePicker;
 /* @var $model app\models\Task */
 /* @var $form yii\widgets\ActiveForm */
 
-$clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()->where(['status' => 1])->asArray()->all(), 'id', 'username');
+$clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()
+    ->where(['status' => 1, 'type' => \app\models\Client::TYPE_CLIENT])->asArray()->all(), 'id', 'username');
 ?>
 
 <div class="task-form">
@@ -27,7 +28,7 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()->where(['sta
         <?= $form->field($model, 'client_id')->widget(\kartik\widgets\Select2::className(), [
             'language' => 'ru',
             'data' => $clients,
-            'options' => ['placeholder' => 'Привязать пользователя...'],
+            'options' => ['placeholder' => 'Выбрать клиента'],
             'pluginOptions' => [
                 'allowClear' => true
             ],

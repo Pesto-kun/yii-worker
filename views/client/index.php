@@ -30,9 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Статус'
             ],
             'username',
+            'typeLabel',
             'description:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'headerOptions' => ['width' => '80'],
+            ],
         ],
     ]); ?>
 

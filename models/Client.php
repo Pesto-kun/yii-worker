@@ -10,18 +10,35 @@ use Yii;
  * @property integer $id
  * @property integer $status
  * @property string $username
+ * @property string $type
+ * @property string $typeLabel
  * @property string $description
  *
  * @property Contact[] $contacts
  */
 class Client extends \yii\db\ActiveRecord
 {
+    const TYPE_CLIENT = 'client';
+    const TYPE_CONTRACTOR = 'contractor';
+
+    public $typeLabel;
+
+    static $_types = array(
+        self::TYPE_CLIENT => 'Клиент',
+        self::TYPE_CONTRACTOR => 'Подрядчик',
+    );
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'client';
+    }
+
+    public function afterFind() {
+        $this->typeLabel = $this->getClientTypeLabel($this->type);
+        parent::afterFind();
     }
 
     /**
@@ -31,9 +48,10 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             [['status'], 'integer'],
-            [['username'], 'required'],
-            [['description'], 'string'],
-            [['username'], 'string', 'max' => 255]
+            [['username', 'type'], 'required'],
+            [['description', 'type'], 'string'],
+            [['username'], 'string', 'max' => 255],
+            [['type'], 'string', 'max' => 32]
         ];
     }
 
@@ -44,7 +62,8 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             'status' => 'Активен',
-            'username' => 'ФИО',
+            'username' => 'ФИО / Название',
+            'type' => 'Тип',
             'description' => 'Подробно',
         ];
     }
@@ -55,5 +74,9 @@ class Client extends \yii\db\ActiveRecord
     public function getContacts()
     {
         return $this->hasMany(Contact::className(), ['client_id' => 'id']);
+    }
+
+    public function getClientTypeLabel($type) {
+        return isset(self::$_types[$type]) ? self::$_types[$type] : null;
     }
 }

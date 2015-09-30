@@ -3,6 +3,7 @@ CREATE TABLE `client` (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `status` int(1) NOT NULL DEFAULT '1',
   `username` varchar(255) NOT NULL,
+  `type` VARCHAR(32) NOT NULL,
   `description` TEXT,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
@@ -56,4 +57,26 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_task`
   FOREIGN KEY (`task_id`)
   REFERENCES `task` (`id`)
+  ON DELETE CASCADE;
+
+#Подрядчики к задаче
+CREATE TABLE `contractor` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `status` int(1) UNSIGNED DEFAULT '1',
+  `created` int(11) UNSIGNED NOT NULL,
+  `task_id` int(11) UNSIGNED NOT NULL,
+  `client_id` int(11) UNSIGNED NOT NULL,
+  `price` int(11),
+  `comment` TEXT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+ALTER TABLE `contractor`
+  ADD CONSTRAINT `contractor_task`
+  FOREIGN KEY (`task_id`)
+  REFERENCES `task` (`id`)
+  ON DELETE CASCADE;
+ALTER TABLE `contractor`
+  ADD CONSTRAINT `contractor_user`
+  FOREIGN KEY (`client_id`)
+  REFERENCES `client` (`id`)
   ON DELETE CASCADE;

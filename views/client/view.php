@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<span class="label label-danger">Неактивен</span>',
             ],
             'username',
+            'typeLabel',
             'description:ntext',
         ],
     ]) ?>
@@ -59,10 +60,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) { return ContactType::getTypeName($data->type); }
             ],
             'value',
-            [
-                'format' => 'raw',
-                'value' => function ($data) { return Html::a('Изменить', ['contact/update', 'id' => $data->id]); }
-            ],
+                [
+                    'format' => 'raw',
+                    'value' => function ($data) { return Html::a('Изменить', ['contact/update', 'id' => $data->id]); }
+                ],
         ],
     ]); ?>
 </div>

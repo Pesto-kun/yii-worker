@@ -25,6 +25,7 @@ use yii\db\ActiveRecord;
  *
  * @property Client $client
  * @property Comment[] $comments
+ * @property Contractor[] $contractors
  */
 class Task extends \yii\db\ActiveRecord
 {
@@ -106,6 +107,14 @@ class Task extends \yii\db\ActiveRecord
     public function getComments()
     {
         return $this->hasMany(Comment::className(), ['task_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getContractors()
+    {
+        return $this->hasMany(Contractor::className(), ['task_id' => 'id']);
     }
 
     public function beforeSave($insert) {

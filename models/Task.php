@@ -29,6 +29,11 @@ use yii\db\ActiveRecord;
  */
 class Task extends \yii\db\ActiveRecord
 {
+
+    const STATUS_ACTIVE = 1;    //Задача активна
+    const STATUS_CLOSED = 0;    //Задача закрыта
+    const STATUS_PAUSE = 2;     //Задача на паузе
+
     /**
      * @inheritdoc
      */
@@ -59,7 +64,7 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'status' => 'Открыто',
+            'status' => 'Статус',
             'created' => 'Создано',
             'updated' => 'Обновлено',
             'closed' => 'Закрыто',

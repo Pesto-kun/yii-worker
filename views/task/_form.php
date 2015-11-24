@@ -1,5 +1,4 @@
 <?php
-
 use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\DateTimePicker;
@@ -15,6 +14,14 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()
 <div class="task-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+    <div class="col-sm-12">
+        <?= $form->field($model, 'status')->radioButtonGroup([
+            0 => 'Завершена',
+            1 => 'Активна',
+            2 => 'На паузе',
+        ]) ?>
+    </div>
 
     <div class="col-sm-8">
         <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>

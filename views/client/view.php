@@ -60,10 +60,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) { return ContactType::getTypeName($data->type); }
             ],
             'value',
-                [
-                    'format' => 'raw',
-                    'value' => function ($data) { return Html::a('Изменить', ['contact/update', 'id' => $data->id]); }
-                ],
+            'comment',
+            [
+                'format' => 'raw',
+                'value' => function ($data) { return Html::a('Изменить', ['contact/update', 'id' => $data->id]); }
+            ],
         ],
     ]); ?>
 </div>

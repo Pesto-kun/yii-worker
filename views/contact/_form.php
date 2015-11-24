@@ -12,12 +12,16 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <?= $form->field($model, 'type')->dropDownList(ContactType::getTypes()) ?>
     </div>
 
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
+    </div>
+
+    <div class="col-sm-6">
+        <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
     </div>
 
     <div class="col-sm-12">

@@ -11,6 +11,7 @@ use Yii;
  * @property integer $client_id
  * @property string $type
  * @property string $value
+ * @property string $comment
  *
  * @property Client $client
  */
@@ -33,7 +34,7 @@ class Contact extends \yii\db\ActiveRecord
             [['type', 'value'], 'required'],
             [['client_id'], 'integer'],
             [['type'], 'string', 'max' => 32],
-            [['value'], 'string', 'max' => 255]
+            [['value', 'comment'], 'string', 'max' => 255]
         ];
     }
 

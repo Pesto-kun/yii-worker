@@ -4,6 +4,7 @@ use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel \app\models\task\DashboardSearch */
 
 $this->title = 'Dashboard';
 ?>
@@ -17,13 +18,14 @@ $this->title = 'Dashboard';
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             [
                 'attribute' => 'priority',
                 'format'=>'raw',
                 'value' => function ($data) {
                     return \app\models\Priority::getPriorityLabel($data->priority);},
-                'label' => 'Приоритет'
+                'label' => 'Приоритет',
             ],
             'title',
             'client.username',

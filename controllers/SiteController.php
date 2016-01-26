@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Task;
+use app\models\task\DashboardSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
@@ -51,12 +52,12 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Task::find()->where(['status' => 1])->orderBy(['priority' => SORT_DESC, 'date' => SORT_DESC]),
-        ]);
+        $searchModel = new DashboardSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 

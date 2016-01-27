@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'typeLabel',
             'description:ntext',
+            'requisites:ntext',
         ],
     ]) ?>
 

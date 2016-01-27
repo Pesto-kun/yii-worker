@@ -13,6 +13,7 @@ use Yii;
  * @property string $type
  * @property string $typeLabel
  * @property string $description
+ * @property string $requisites
  *
  * @property Contact[] $contacts
  */
@@ -49,7 +50,7 @@ class Client extends \yii\db\ActiveRecord
         return [
             [['status'], 'integer'],
             [['username', 'type'], 'required'],
-            [['description', 'type'], 'string'],
+            [['description', 'type', 'requisites'], 'string'],
             [['username'], 'string', 'max' => 255],
             [['type'], 'string', 'max' => 32]
         ];
@@ -65,6 +66,7 @@ class Client extends \yii\db\ActiveRecord
             'username' => 'ФИО / Название',
             'type' => 'Тип',
             'description' => 'Подробно',
+            'requisites' => 'Реквизиты',
         ];
     }
 

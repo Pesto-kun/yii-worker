@@ -37,6 +37,10 @@ use kartik\widgets\SwitchInput;
     </div>
 
     <div class="col-sm-12">
+        <?= $form->field($model, 'requisites')->textarea(['rows' => 3]) ?>
+    </div>
+
+    <div class="col-sm-12">
         <?= Html::submitButton($model->isNewRecord ? 'Добавить' : 'Сохранить изменения', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

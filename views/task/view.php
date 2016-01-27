@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Статус',
                 'format'=>'raw',
                 'value'=>$model->status ?
-                    '<span class="label label-success">Открыто</span>' :
+                    '<span class="label label-success btn-">Открыто</span>' :
                     '<span class="label label-danger">Закрыто</span>',
             ],
             [
@@ -42,7 +42,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'client.username',
                 'label' => 'Клиент'
             ],
-            'date:datetime',
+            [
+                'attribute' => 'date',
+                'format' => 'raw',
+                'value' => $model->getThemedDate()
+            ],
             'expected_profit',
             'result_profit',
             'description:ntext',

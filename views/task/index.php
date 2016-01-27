@@ -39,7 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'client.username',
             'title',
             'created:datetime',
-            'date:datetime',
+            [
+                'attribute' => 'date',
+                'format' => 'raw',
+                'value' => function($data) {
+                    /* @var $data \app\models\Task */
+                    return $data->getThemedDate();
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

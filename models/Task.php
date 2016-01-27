@@ -3,6 +3,7 @@
 namespace app\models;
 
 use DateTime;
+use kartik\helpers\Html;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -33,6 +34,10 @@ class Task extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 1;    //Задача активна
     const STATUS_CLOSED = 0;    //Задача закрыта
     const STATUS_PAUSE = 2;     //Задача на паузе
+
+    //Сроки задачи
+    const PERIOD_WARNING = 86400;   //Время с которого задача помечается как важная
+    const PERIOD_SUCCESS = 604800;  //Время до которого задача помечается как "полно времени на выполнение"
 
     /**
      * @inheritdoc
@@ -128,7 +133,18 @@ class Task extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-
+    public function getThemedDate() {
+        $current = time();
+        if($this->date < $current) {
+            return Html::tag('span', Yii::$app->formatter->asDatetime($this->date), ['class' => 'alert-danger']);
+        } elseif($this->date < ($current + (60*60*24))) {
+            return Html::tag('span', Yii::$app->formatter->asDatetime($this->date), ['class' => 'alert-warning']);
+        } elseif($this->date > ($current + (60*60*24*7))) {
+            return Html::tag('span', Yii::$app->formatter->asDatetime($this->date), ['class' => 'alert-success']);
+        } else {
+            return Html::tag('span', Yii::$app->formatter->asDatetime($this->date), ['class' => 'alert-info']);
+        }
+    }
 
     //    public function load($data, $formName = NULL) {
 //

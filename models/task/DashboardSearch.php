@@ -45,6 +45,12 @@ class DashboardSearch extends Task {
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> [
+                'defaultOrder' => [
+                    'priority' => SORT_DESC,
+                    'date' => SORT_DESC
+                ]
+            ]
         ]);
 
         $this->load($params);
@@ -58,8 +64,6 @@ class DashboardSearch extends Task {
         $query->andWhere([
             'status' => Task::STATUS_ACTIVE,
         ]);
-
-        $query->orderBy(['priority' => SORT_DESC, 'date' => SORT_DESC]);
 
         $query->andFilterWhere([
             'priority' => $this->priority,

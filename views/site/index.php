@@ -1,6 +1,9 @@
 <?php
+use app\models\Client;
+use app\models\Priority;
 use kartik\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -24,13 +27,26 @@ $this->title = 'Dashboard';
                 'attribute' => 'priority',
                 'format'=>'raw',
                 'value' => function ($data) {
-                    return \app\models\Priority::getPriorityLabel($data->priority);},
+                    return Priority::getPriorityLabel($data->priority);
+                },
                 'label' => 'Приоритет',
+                'filter' => Priority::getItems()
             ],
             'title',
-            'client.username',
+            [
+                'attribute' => 'client_id',
+                'filter' => ArrayHelper::map(Client::findAll(['status' => 1]), 'id', 'username'),
+                'value' => 'client.username'
+            ],
             'expected_profit',
-            'date:datetime',
+            [
+                'attribute' => 'date',
+                'format' => 'raw',
+                'value' => function($data) {
+                    /* @var $data \app\models\Task */
+                    return $data->getThemedDate();
+                }
+            ],
             [
                 'format' => 'raw',
                 'value' => function ($data) { return Html::a('Подробно', ['task/view', 'id' => $data->id]); }

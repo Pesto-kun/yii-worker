@@ -61,6 +61,7 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $model = new Task();
+        $model->status = Task::STATUS_ACTIVE;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

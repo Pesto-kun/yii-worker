@@ -44,7 +44,7 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()
                     'content' => Html::icon('user'),
                 ],
             ]
-        ]); ?>
+        ])->label('Клиент'); ?>
     </div>
 
     <div class="col-sm-6">

@@ -1,10 +1,14 @@
 <?php
-
+use app\models\Client;
+use app\models\Priority;
+use app\models\Task;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel \app\models\task\DashboardSearch */
 
 $this->title = 'Задачи';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,24 +23,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             [
                 'attribute' => 'status',
                 'format'=>'raw',
                 'value' => function ($data) {
-                    return $data->status === 1 ?
-                        '<span class="label label-success">Открыто</span>' :
-                        '<span class="label label-danger">Закрыто</span>';},
-                'label' => 'Статус'
+                    return Task::getStatusLabel($data->status);
+                },
+                'label' => 'Статус',
+                'filter' => Task::getStatuses()
             ],
             [
                 'attribute' => 'priority',
                 'format'=>'raw',
                 'value' => function ($data) {
                     return \app\models\Priority::getPriorityLabel($data->priority);},
-                'label' => 'Приоритет'
+                'label' => 'Приоритет',
+                'filter' => Priority::getItems()
             ],
-            'client.username',
+            [
+                'attribute' => 'client_id',
+                'value' => 'client.username',
+                'filter' => ArrayHelper::map(Client::findAll(['status' => Client::STATUS_ACTIVE]), 'id', 'username'),
+                'label' => 'Клиент'
+            ],
             'title',
             'created:datetime',
             [

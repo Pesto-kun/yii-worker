@@ -39,7 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     '<span class="label label-danger">Неактивен</span>',
             ],
             'username',
-            'typeLabel',
+            [
+                'attribute' => 'type',
+                'value' => \app\models\Client::getClientTypeName($model->type)
+            ],
             'description:ntext',
             'requisites:ntext',
         ],

@@ -35,8 +35,9 @@ $this->title = 'Dashboard';
             'title',
             [
                 'attribute' => 'client_id',
-                'filter' => ArrayHelper::map(Client::findAll(['status' => 1]), 'id', 'username'),
-                'value' => 'client.username'
+                'value' => 'client.username',
+                'filter' => ArrayHelper::map(Client::findAll(['status' => Client::STATUS_ACTIVE]), 'id', 'username'),
+                'label' => 'Клиент'
             ],
             'expected_profit',
             [

@@ -146,18 +146,29 @@ class Task extends \yii\db\ActiveRecord
         }
     }
 
-    //    public function load($data, $formName = NULL) {
-//
-//        if(parent::load($data, $formName)) {
-//
-//            if($data['Task']['date']) {
-//                $parts = explode('-', $data['Task']['date']);
-//                $this->setAttribute('date', mktime(0, 0, 0, $parts[1], $parts[2], $parts[0]));
-//            }
-//
-//            return true;
-//        }
-//
-//        return false;
-//    }
+    static public function getStatuses() {
+        return [
+            self::STATUS_ACTIVE => 'Открыто',
+            self::STATUS_CLOSED => 'Закрыто',
+            self::STATUS_PAUSE => 'На паузе',
+        ];
+    }
+
+    static public function getStatusName($status) {
+        $statuses = self::getStatuses();
+        return isset($statuses[$status]) ? $statuses[$status] : '';
+    }
+
+    static public function getStatusLabel($status) {
+        switch($status) {
+            case self::STATUS_ACTIVE:
+                return '<span class="label label-success">Открыто</span>';
+            case self::STATUS_CLOSED:
+                return '<span class="label label-danger">Закрыто</span>';
+            case self::STATUS_PAUSE:
+                return '<span class="label label-info">На паузе</span>';
+            default:
+                return '<span class="label label-default">- неизвестно -</span>';
+        }
+    }
 }

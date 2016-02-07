@@ -1,10 +1,11 @@
 <?php
-
+use app\models\Client;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel \app\models\client\Search */
 
 $this->title = 'Клиенты';
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             [
                 'attribute' => 'status',
@@ -26,11 +28,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     return $data->status === 1 ?
                         '<span class="label label-success">Активен</span>' :
-                        '<span class="label label-danger">Неактивен</span>';},
-                'label' => 'Статус'
+                        '<span class="label label-danger">Неактивен</span>';
+                },
+                'filter' => [
+                    Client::STATUS_ACTIVE => 'Активен',
+                    Client::STATUS_DISABLE => 'Неактивен',
+                ]
             ],
             'username',
-            'typeLabel',
+            [
+                'attribute' => 'type',
+                'value' => function($data) {
+                    return Client::getClientTypeName($data->type);
+                },
+                'filter' => Client::$_types
+            ],
             'description:ntext',
 
             [

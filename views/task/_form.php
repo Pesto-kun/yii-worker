@@ -5,7 +5,7 @@ use kartik\widgets\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Task */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form \kartik\widgets\ActiveForm */
 
 $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()
     ->where(['status' => 1, 'type' => \app\models\Client::TYPE_CLIENT])->asArray()->all(), 'id', 'username');

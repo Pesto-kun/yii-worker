@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'client_id',
                 'value' => 'client.username',
-                'filter' => ArrayHelper::map(Client::findAll(['status' => Client::STATUS_ACTIVE]), 'id', 'username'),
+                'filter' => ArrayHelper::map(Client::findAll(['status' => Client::STATUS_ACTIVE, 'type' => Client::TYPE_CLIENT]), 'id', 'username'),
                 'label' => 'Клиент'
             ],
             'title',

@@ -1,4 +1,5 @@
 <?php
+use app\models\User;
 use kartik\tabs\TabsX;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
@@ -24,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
     $tab1 .= DetailView::widget([
         'model' => $model,
         'attributes' => [
+            [
+                'attribute' =>'user_id',
+                'value' => User::getUsernameById($model->user_id),
+            ],
             [
                 'attribute'=>'status',
                 'label'=>'Статус',

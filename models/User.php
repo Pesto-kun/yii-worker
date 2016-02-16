@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use yii\helpers\ArrayHelper;
+
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
@@ -106,5 +108,32 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === $password;
+    }
+
+    /**
+     * Получение имени пользователя по его ID
+     *
+     * @param $id
+     *
+     * @return null|static
+     */
+    static public function getUsernameById($id)
+    {
+        foreach (self::$users as $user) {
+            if (strcasecmp($user['id'], $id) === 0) {
+                return $user['username'];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Получение списка пользователей для фильтра
+     *
+     * @return array
+     */
+    static public function getUserOptions() {
+        return ArrayHelper::map(self::$users, 'id', 'username');
     }
 }

@@ -62,6 +62,7 @@ class TaskController extends Controller
     {
         $model = new Task();
         $model->status = Task::STATUS_ACTIVE;
+        $model->user_id = Yii::$app->user->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

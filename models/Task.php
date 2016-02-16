@@ -19,6 +19,7 @@ use yii\db\ActiveRecord;
  * @property integer $client_id
  * @property string $title
  * @property integer $date
+ * @property integer $user_id
  * @property integer $priority
  * @property integer $expected_profit
  * @property integer $result_profit
@@ -53,7 +54,7 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['status', 'created', 'updated', 'closed', 'client_id', 'expected_profit', 'result_profit', 'priority'], 'integer'],
+            [['status', 'created', 'updated', 'closed', 'client_id', 'expected_profit', 'result_profit', 'priority', 'user_id'], 'integer'],
             [['title'], 'required'],
             [['description'], 'string'],
             [['title'], 'string', 'max' => 255],
@@ -76,6 +77,7 @@ class Task extends \yii\db\ActiveRecord
             'client_id' => 'ID клиента',
             'title' => 'Название задачи',
             'date' => 'Дата завершения',
+            'user_id' => 'Автор задачи',
             'expected_profit' => 'Ожидаемая прибыль',
             'result_profit' => 'Прибыль по факту',
             'description' => 'Описание',
@@ -128,8 +130,10 @@ class Task extends \yii\db\ActiveRecord
     }
 
     public function beforeSave($insert) {
-        $dateFrom = DateTime::createFromFormat('d.m.Y H:i', $this->date);
-        $this->date = $dateFrom->getTimestamp();
+        if($this->date) {
+            $dateFrom = DateTime::createFromFormat('d.m.Y H:i', $this->date);
+            $this->date = $dateFrom->getTimestamp();
+        }
         return parent::beforeSave($insert);
     }
 

@@ -18,7 +18,7 @@ class Search extends Task {
     public function rules()
     {
         return [
-            [['status', 'priority', 'client_id'], 'integer'],
+            [['status', 'priority', 'client_id', 'user_id'], 'integer'],
             [['title'], 'string'],
         ];
     }
@@ -64,6 +64,7 @@ class Search extends Task {
             'status' => $this->status,
             'priority' => $this->priority,
             'client_id' => $this->client_id,
+            'user_id' => $this->user_id,
         ]);
         $query->andFilterWhere(['like', 'title', $this->title]);
 

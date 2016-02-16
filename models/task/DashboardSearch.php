@@ -18,7 +18,7 @@ class DashboardSearch extends Task {
     public function rules()
     {
         return [
-            [['priority', 'client_id'], 'integer'],
+            [['priority', 'client_id', 'user_id'], 'integer'],
             [['title'], 'string'],
         ];
     }
@@ -68,6 +68,7 @@ class DashboardSearch extends Task {
         $query->andFilterWhere([
             'priority' => $this->priority,
             'client_id' => $this->client_id,
+            'user_id' => $this->user_id,
         ]);
         $query->andFilterWhere(['like', 'title', $this->title]);
 

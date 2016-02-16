@@ -1,6 +1,7 @@
 <?php
 use app\models\Client;
 use app\models\Priority;
+use app\models\User;
 use kartik\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -38,6 +39,11 @@ $this->title = 'Dashboard';
                 'value' => 'client.username',
                 'filter' => ArrayHelper::map(Client::findAll(['status' => Client::STATUS_ACTIVE, 'type' => Client::TYPE_CLIENT]), 'id', 'username'),
                 'label' => 'Клиент'
+            ],
+            [
+                'attribute' =>'user_id',
+                'value' => function($data) {return User::getUsernameById($data->user_id);},
+                'filter' => User::getUserOptions(),
             ],
             'expected_profit',
             [

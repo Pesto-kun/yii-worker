@@ -1,4 +1,5 @@
 <?php
+use app\models\User;
 use kartik\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\widgets\DateTimePicker;
@@ -15,12 +16,16 @@ $clients = \yii\helpers\ArrayHelper::map(\app\models\Client::find()
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="col-sm-12">
+    <div class="col-sm-6">
         <?= $form->field($model, 'status')->radioButtonGroup([
             0 => 'Завершена',
             1 => 'Активна',
             2 => 'На паузе',
         ]) ?>
+    </div>
+
+    <div class="col-sm-6">
+        <?= $form->field($model, 'user_id')->dropDownList(User::getUserOptions()) ?>
     </div>
 
     <div class="col-sm-8">

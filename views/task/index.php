@@ -2,6 +2,7 @@
 use app\models\Client;
 use app\models\Priority;
 use app\models\Task;
+use app\models\User;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -50,6 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             'created:datetime',
+            [
+                'attribute' =>'user_id',
+                'value' => function($data) {return User::getUsernameById($data->user_id);},
+                'filter' => User::getUserOptions(),
+            ],
             [
                 'attribute' => 'date',
                 'format' => 'raw',
